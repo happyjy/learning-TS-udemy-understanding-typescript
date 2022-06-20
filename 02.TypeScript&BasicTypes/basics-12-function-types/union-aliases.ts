@@ -1,14 +1,9 @@
-/* 
-  # type-alias
-    - 같은 타입의 다른 파일에서 사용할때 유용하게 사용 할 수 있습니다.
-*/
-
-type Combinable = number | string; // # type alias
-type ConversionDescriptor = "as-number" | "as-text"; // # type alias
+type Combinable = number | string;
+type ConversionDescriptor = "as-number" | "as-text";
 
 function combine(
-  input1: Combinable,
-  input2: Combinable,
+  input1: Combinable1,
+  input2: Combinable1,
   resultConversion: ConversionDescriptor
 ) {
   let result;
