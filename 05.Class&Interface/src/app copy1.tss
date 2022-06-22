@@ -1,0 +1,41 @@
+// 61. Constructor Functions & The "this" Keyword
+
+//  1️⃣에서 this.name의 this의 타입을 지정하기 위해서 'this: Department'를 기입하는 순간
+
+//  2️⃣ 에서 아래와 같은 에러가 난다.
+/*
+    const accountingCopy: {
+        describe: (this: Department) => void;
+    }
+    The 'this' context of type '{ describe: (this: Department) => void; }' is not assignable to method's 'this' of type 'Department'.
+    Property 'name' is missing in type '{ describe: (this: Department) => void; }' but required in type 'Department'.ts(2684)
+    app.ts(8, 3): 'name' is declared here.
+*/
+
+// 해결 하기 위해서 3️⃣ accountingCopy 객체에 name 프로퍼티를 추가한다.
+// 이유는 this: Department로 설정했고
+// Department의 property로는 name이 있다.
+// 그래서 accountingCopy 객체에 name property를 설정해주면 에러는 해결된다.
+
+class Department {
+  name: string;
+
+  constructor(n: string) {
+    this.name = n;
+  }
+
+  // 1️⃣
+  describe(this: Department) {
+    console.log("Department: " + this.name);
+  }
+}
+
+const accounting = new Department("Accounting");
+
+accounting.describe();
+
+// 3️⃣
+const accountingCopy = { name: "DEV", describe: accounting.describe };
+
+// 2️⃣
+accountingCopy.describe(); // ⭐️describe의 this.name은 accountingCopy.name을 가르킨다.
